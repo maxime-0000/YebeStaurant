@@ -26,11 +26,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--violet-bright);
 .brand { display: flex; align-items: center; gap: 11px; font: 600 18px/1.15 var(--serif); text-decoration: none; }
 .brand small { display: block; margin-top: 4px; font: 600 10px var(--sans); letter-spacing: .18em; text-transform: uppercase; }
 .brand-mark { color: var(--violet-bright); font-size: 27px; }
-.site-header nav { display: flex; gap: 28px; }
-.site-header nav a { position: relative; padding: 9px 0; color: var(--muted); font-size: 12px; text-decoration: none; transition: color .2s ease; }
-.site-header nav a:hover, .site-header nav .active { color: var(--violet); }
-.site-header nav .active::after { position: absolute; right: 0; bottom: 1px; left: 0; height: 2px; border-radius: 2px; background: var(--violet-bright); content: ''; }
-.menu-toggle { display: none; }
+.nav-menu { position: relative; }
+.nav-menu summary { display: none; }
+.nav-links { display: flex; gap: 28px; }
+.nav-menu:not([open]) .nav-links { display: flex; }
+.nav-links a { position: relative; padding: 9px 0; color: var(--muted); font-size: 12px; text-decoration: none; transition: color .2s ease; }
+.nav-links a:hover, .nav-links .active { color: var(--violet); }
+.nav-links .active::after { position: absolute; right: 0; bottom: 1px; left: 0; height: 2px; border-radius: 2px; background: var(--violet-bright); content: ''; }
 
 .hero { position: relative; display: grid; min-height: 620px; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 7vw; overflow: hidden; padding: 72px max(8vw, 28px); background: radial-gradient(ellipse at 87% 8%, #e6ddff 0, transparent 33%), linear-gradient(125deg, #F7F5FF 0%, #F1EDFF 55%, #E7DEFF 100%); }
 .hero::before { position: absolute; top: -180px; left: 43%; width: 520px; height: 520px; border: 1px solid rgb(139 92 246 / 10%); border-radius: 50%; content: ''; }
@@ -139,11 +141,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--violet-bright);
 
 @media (max-width: 800px) {
   .site-header { height: 72px; }
-  .menu-toggle { display: block; border: 1px solid var(--line); border-radius: 4px; padding: 8px 12px; background: transparent; color: var(--ink); font: 12px var(--sans); }
-  .site-header nav { position: absolute; top: 71px; right: 0; left: 0; display: none; flex-direction: column; gap: 0; border-bottom: 1px solid var(--line); padding: 18px 25px; background: var(--paper); }
-  .site-header nav.open { display: flex; }
-  .site-header nav a { padding: 10px 0; }
-  .site-header nav .active::after { right: auto; width: 45px; }
+  .nav-menu summary { display: block; cursor: pointer; border: 1px solid var(--line); border-radius: 4px; padding: 8px 12px; color: var(--ink); font-size: 12px; list-style: none; }
+  .nav-menu summary::-webkit-details-marker { display: none; }
+  .nav-menu summary::after { padding-left: 8px; color: var(--violet); content: '⌄'; }
+  .nav-menu[open] summary::after { content: '⌃'; }
+  .nav-links { position: absolute; top: 43px; right: 0; display: none; min-width: 240px; flex-direction: column; gap: 0; border: 1px solid var(--line); border-radius: 5px; padding: 10px 18px; background: var(--paper); box-shadow: var(--shadow); }
+  .nav-menu[open] .nav-links { display: flex; }
+  .nav-menu:not([open]) .nav-links { display: none; }
+  .nav-links a { padding: 10px 0; }
+  .nav-links .active::after { right: auto; width: 45px; }
   .hero { grid-template-columns: 1fr; gap: 35px; padding-top: 60px; }
   .hero-art { height: 360px; }
   .notice { align-items: flex-start; flex-wrap: wrap; }
